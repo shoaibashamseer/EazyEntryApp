@@ -1,0 +1,37 @@
+{% extends 'customerspace/base.html' %}
+{% block title %}Check-In{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Current Day's Attendance</h2>
+    <h1 class="text-center">Check-In for {{ event.name }}</h1>
+
+    <!-- Error Message -->
+    {% if error %}
+    <div class="alert alert-danger text-center">
+        {{ error }}
+    </div>
+    {% endif %}
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3>Attendance Report</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                {% for seat_type, count in seat_counts.items %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="seat-type">{{ seat_type }}</span>
+                    <span class="badge bg-success rounded-pill">{{ count }}</span>
+                </li>
+                {% empty %}
+                <li class="list-group-item text-center">
+                    No attendees yet.
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <button id="scanEnter">Scan New Entry</button>
+    <button id="scanExit">Scan Exit</button>
+</div>
+{% endblock %}
